@@ -10,6 +10,9 @@ import express, {
 import cors from 'cors';
 import { PORT } from './config';
 import { SampleRouter } from './routers/sample.router';
+import { AddEvent, DeleteEvent, EditEvent } from './controllers/eventTransaction.controller';
+import PromoRouter from "@/routers/promotion.router";
+
 
 export default class App {
   private app: Express;
@@ -58,6 +61,12 @@ export default class App {
     });
 
     this.app.use('/api/samples', sampleRouter.getRouter());
+    this.app.use('/api/addevent', AddEvent);
+    this.app.use('/api/editevent/:id', EditEvent);
+    this.app.use('/api/deleteevent/:id', DeleteEvent);
+
+    //Promotion
+    this.app.use('/api/promo-management', PromoRouter);
   }
 
   public start(): void {
